@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orkay Tiles - Landing Pages</title>
+    <style>
+        :root {
+            --red: #fc424a;
+            --title: #25252b;
+            --body: #5c5c60;
+            --white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--title) 0%, #2d2d35 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 60px;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: var(--title);
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            color: var(--red);
+        }
+
+        p {
+            color: var(--body);
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .pages {
+            display: grid;
+            gap: 15px;
+        }
+
+        a {
+            display: block;
+            background: var(--red);
+            color: var(--white);
+            text-decoration: none;
+            padding: 20px 30px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(252, 66, 74, 0.4);
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: var(--body);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>ORKAY<span>TILES</span></h1>
+        <p>Premium Tile Manufacturer Since 1996 | Morbi, Gujarat, India</p>
+
+        <div class="pages">
+            <a href="LANDING PAGE/dealer-acquisition.html">🏪 Dealer Acquisition</a>
+            <a href="LANDING PAGE/builder-bulk-supply.html">🏗️ Builder Bulk Supply</a>
+            <a href="LANDING PAGE/global-manufacturer.html">🌍 Global Manufacturer</a>
+            <a href="LANDING PAGE/why-orkay-vs-china.html">🇮🇳 Why Orkay vs China</a>
+        </div>
+
+        <p class="footer">© 2026 Orkay Tiles | exports@orkaytiles.com</p>
+    </div>
+</body>
+
+</html>

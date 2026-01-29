@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Manufacturer from India | Orkay Tiles - ISO & CE Certified</title>
+    <meta name="description"
+        content="Source premium ceramic and porcelain tiles from India's trusted manufacturer. 25+ years experience, ISO & CE certified, exporting to 40+ countries.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #fc424a;
+            --body: #5c5c60;
+            --title: #25252b;
+            --black: #000;
+            --white: #fff;
+            --gray: #d3d3d3;
+            --light-bg: #f8f9fa;
+            --gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Now Display', system-ui, sans-serif;
+            font-size: 18px;
+            color: var(--body);
+            line-height: 1.7;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            color: var(--title);
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 54px);
+        }
+
+        h2 {
+            font-size: clamp(28px, 4vw, 42px);
+        }
+
+        h3 {
+            font-size: clamp(22px, 3vw, 28px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--title);
+        }
+
+        .logo-text span {
+            color: var(--red);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #e03a41;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(252, 66, 74, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--title);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2d4a 100%);
+            color: var(--white);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="%23fc424a" opacity="0.1" cx="100" cy="100" r="80"/></svg>') no-repeat center;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge-icon {
+            font-size: 24px;
+        }
+
+        .badge-text {
+            font-weight: 600;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--red);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--body);
+            margin-top: 10px;
+        }
+
+        /* Countries */
+        .countries {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        .countries-map {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .country-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .country-tag {
+            background: var(--title);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Products */
+        .products {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            border-color: var(--red);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 15px;
+        }
+
+        .product-sizes {
+            color: var(--red);
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* Certifications */
+        .certifications {
+            padding: 100px 0;
+            background: var(--title);
+            color: var(--white);
+        }
+
+        .certifications h2 {
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .cert-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .cert-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+        }
+
+        .cert-item h4 {
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .cert-item p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Why India */
+        .why-india {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .why-content h2 {
+            margin-bottom: 30px;
+        }
+
+        .why-list {
+            list-style: none;
+        }
+
+        .why-list li {
+            padding: 20px;
+            padding-left: 60px;
+            position: relative;
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .why-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            background: var(--red);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .why-image {
+            background: linear-gradient(135deg, var(--red) 0%, #d63840 100%);
+            border-radius: 30px;
+            padding: 60px;
+            color: var(--white);
+        }
+
+        .why-image h3 {
+            color: var(--white);
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Enquiry Form */
+        .enquiry {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .enquiry-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .enquiry-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .enquiry-content p {
+            margin-bottom: 30px;
+        }
+
+        .enquiry-benefits {
+            list-style: none;
+        }
+
+        .enquiry-benefits li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .enquiry-benefits li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .enquiry-form {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 20px;
+        }
+
+        .enquiry-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--red) 0%, #d63840 100%);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta .btn {
+            background: var(--white);
+            color: var(--red);
+        }
+
+        .cta .btn:hover {
+            background: var(--title);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--title);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .stats-grid,
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid,
+            .enquiry-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-text">ORKAY<span>TILES</span></div>
+                <a href="#enquiry" class="btn btn-primary">Request Export Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><span>Premium Tile Manufacturer</span> from India</h1>
+                <p>Partner with one of India's most trusted tile manufacturers. We're not traders – we manufacture in
+                    our own facility with complete quality control. ISO & CE certified for 40+ global markets.</p>
+                <div class="trust-badges">
+                    <div class="badge">
+                        <span class="badge-icon">🏭</span>
+                        <span class="badge-text">Manufacturer, Not Trader</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">✓</span>
+                        <span class="badge-text">ISO Certified</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">🇪🇺</span>
+                        <span class="badge-text">CE Certified</span>
+                    </div>
+                </div>
+                <a href="#enquiry" class="btn btn-primary">Get Export Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Years Manufacturing</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Countries Exported</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85K+</div>
+                    <div class="stat-label">Sq.m Daily Capacity</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Designs Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countries -->
+    <section class="countries">
+        <div class="container">
+            <div class="section-header">
+                <h2>Exporting to 40+ Countries</h2>
+                <p>Our tiles are trusted by importers, distributors, and project developers across the globe.</p>
+            </div>
+            <div class="countries-map">
+                <h3>Our Global Presence</h3>
+                <div class="country-tags">
+                    <span class="country-tag">🇺🇸 USA</span>
+                    <span class="country-tag">🇬🇧 UK</span>
+                    <span class="country-tag">🇦🇪 UAE</span>
+                    <span class="country-tag">🇸🇦 Saudi Arabia</span>
+                    <span class="country-tag">🇦🇺 Australia</span>
+                    <span class="country-tag">🇩🇪 Germany</span>
+                    <span class="country-tag">🇫🇷 France</span>
+                    <span class="country-tag">🇳🇱 Netherlands</span>
+                    <span class="country-tag">🇿🇦 South Africa</span>
+                    <span class="country-tag">🇳🇬 Nigeria</span>
+                    <span class="country-tag">🇰🇪 Kenya</span>
+                    <span class="country-tag">🇸🇬 Singapore</span>
+                    <span class="country-tag">🇲🇾 Malaysia</span>
+                    <span class="country-tag">🇹🇭 Thailand</span>
+                    <span class="country-tag">+ More</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Export Product Range</h2>
+                <p>Premium quality tiles manufactured with Italian technology for discerning global markets.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🏢</div>
+                    <h3>Digital Wall Tiles</h3>
+                    <p>High-definition digital printing with vibrant colors and precise patterns.</p>
+                    <div class="product-sizes">300×450 | 300×600</div>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">✨</div>
+                    <h3>Porcelain Tiles (PGVT)</h3>
+                    <p>Polished Glazed Vitrified Tiles with near-zero water absorption.</p>
+                    <div class="product-sizes">600×600 | 600×1200</div>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🎨</div>
+                    <h3>Glazed Vitrified Tiles</h3>
+                    <p>Matt and glossy finishes with excellent durability.</p>
+                    <div class="product-sizes">600×600 | 800×800</div>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">📐</div>
+                    <h3>Large Format Slabs</h3>
+                    <p>Premium stone-look slabs for luxury interiors.</p>
+                    <div class="product-sizes">800×1600 | 1200×1800</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="container">
+            <h2>International Certifications & Compliance</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="cert-icon">🏆</div>
+                    <h4>ISO 9001:2015</h4>
+                    <p>Quality Management System certified</p>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🇪🇺</div>
+                    <h4>CE Marking</h4>
+                    <p>Compliant for European markets</p>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">📦</div>
+                    <h4>Export Packaging</h4>
+                    <p>Container-optimized packing standards</p>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">📄</div>
+                    <h4>Documentation</h4>
+                    <p>Complete export documentation support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why India -->
+    <section class="why-india">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-content">
+                    <h2>Why Source from India?</h2>
+                    <ul class="why-list">
+                        <li><strong>Competitive Pricing:</strong> 25-30% cost advantage over European manufacturers</li>
+                        <li><strong>Quality Standards:</strong> International quality with ISO/CE compliance</li>
+                        <li><strong>Design Variety:</strong> 1000+ designs across all categories</li>
+                        <li><strong>Reliable Supply:</strong> 85,000+ sq.m daily production capacity</li>
+                        <li><strong>Fast Lead Times:</strong> Faster production vs. China with quality assurance</li>
+                    </ul>
+                </div>
+                <div class="why-image">
+                    <h3>Morbi, Gujarat – Tile Capital of India</h3>
+                    <p>Located in India's premier ceramic hub, Orkay Tiles has been manufacturing premium tiles since
+                        1996. Our state-of-the-art facility uses Italian technology for consistent, export-quality
+                        production.</p>
+                    <a href="#enquiry" class="btn btn-outline" style="margin-top: 30px;">Start Sourcing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enquiry Form -->
+    <section class="enquiry" id="enquiry">
+        <div class="container">
+            <div class="enquiry-grid">
+                <div class="enquiry-content">
+                    <h2>Ready to Source Premium Tiles from India?</h2>
+                    <p>Get a customized export quote based on your requirements. Our export team responds within 24
+                        hours.</p>
+                    <ul class="enquiry-benefits">
+                        <li>FOB/CIF pricing based on your port</li>
+                        <li>Container loading optimization</li>
+                        <li>Sample shipment available</li>
+                        <li>Complete documentation support</li>
+                        <li>Dedicated export relationship manager</li>
+                    </ul>
+                </div>
+                <div class="enquiry-form">
+                    <h3>Request Export Quote</h3>
+                    <iframe src="https://api.leadconnectorhq.com/widget/form/DVCroNRXjap5XqKMOzWD"
+                        style="width:100%;height:550px;border:none;border-radius:4px"
+                        title="Export Quote Form"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Your Trusted Manufacturing Partner in India</h2>
+            <p>Join importers from 40+ countries who trust Orkay Tiles for quality and reliability.</p>
+            <a href="#enquiry" class="btn">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Orkay Tiles | Morbi, Gujarat, India | +91 98256 00183 | exports@orkaytiles.com</p>
+        </div>
+    </footer>
+
+    <!-- GHL Popup Form -->
+    <iframe src="https://api.leadconnectorhq.com/widget/form/DVCroNRXjap5XqKMOzWD"
+        style="display:none;width:100%;height:100%;border:none;border-radius:4px" id="popup-DVCroNRXjap5XqKMOzWD"
+        data-layout="{'id':'POPUP'}" data-trigger-type="alwaysShow" data-trigger-value=""
+        data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate"
+        data-deactivation-value="" data-form-name="ON BOARDING FORM" data-height="1216"
+        data-layout-iframe-id="popup-DVCroNRXjap5XqKMOzWD" data-form-id="DVCroNRXjap5XqKMOzWD"
+        title="ON BOARDING FORM"></iframe>
+    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+    <!-- GHL Chat Widget -->
+    <script src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="696e2b7b50385b42732c3050">
+        </script>
+</body>
+
+</html>

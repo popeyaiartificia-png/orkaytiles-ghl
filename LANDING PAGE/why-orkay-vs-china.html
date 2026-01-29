@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India vs China Tiles: 30% Cost Advantage | Orkay Tiles</title>
+    <meta name="description"
+        content="Why smart importers are switching from China to India for tiles. Get 30% cost savings with same quality, faster delivery, and better consistency.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #fc424a;
+            --body: #5c5c60;
+            --title: #25252b;
+            --black: #000;
+            --white: #fff;
+            --gray: #d3d3d3;
+            --light-bg: #f8f9fa;
+            --green: #22c55e;
+            --amber: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Now Display', system-ui, sans-serif;
+            font-size: 18px;
+            color: var(--body);
+            line-height: 1.7;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            color: var(--title);
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 54px);
+        }
+
+        h2 {
+            font-size: clamp(28px, 4vw, 42px);
+        }
+
+        h3 {
+            font-size: clamp(22px, 3vw, 28px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--title);
+        }
+
+        .logo-text span {
+            color: var(--red);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #e03a41;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(252, 66, 74, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--title) 0%, #2d2d35 100%);
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(252, 66, 74, 0.2) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Comparison Stats */
+        .comparison-stats {
+            padding: 60px 0;
+            background: var(--white);
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .stat-number span {
+            font-size: 32px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--body);
+            margin-top: 10px;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .comparison-table {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: var(--title);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .table-header>div {
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .table-header .india-col {
+            background: var(--red);
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row>div {
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .table-row .factor {
+            justify-content: flex-start;
+            font-weight: 600;
+            color: var(--title);
+        }
+
+        .check {
+            color: var(--green);
+            font-size: 24px;
+        }
+
+        .cross {
+            color: var(--amber);
+            font-size: 24px;
+        }
+
+        .india-highlight {
+            background: rgba(252, 66, 74, 0.05);
+        }
+
+        /* Pain Points */
+        .pain-points {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pain-content h2 {
+            margin-bottom: 30px;
+        }
+
+        .pain-content h2 span {
+            color: var(--red);
+        }
+
+        .pain-list {
+            list-style: none;
+        }
+
+        .pain-item {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: var(--light-bg);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--red);
+        }
+
+        .pain-icon {
+            font-size: 28px;
+        }
+
+        .pain-text h4 {
+            color: var(--title);
+            margin-bottom: 5px;
+        }
+
+        .pain-text p {
+            font-size: 16px;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, var(--red) 0%, #d63840 100%);
+            color: var(--white);
+            padding: 60px;
+            border-radius: 30px;
+        }
+
+        .solution-box h3 {
+            color: var(--white);
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .solution-list {
+            list-style: none;
+        }
+
+        .solution-list li {
+            padding: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .solution-list li:last-child {
+            border-bottom: none;
+        }
+
+        .solution-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Testimonials/Trust */
+        .trust {
+            padding: 100px 0;
+            background: var(--title);
+            color: var(--white);
+        }
+
+        .trust h2 {
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .trust-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .trust-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+        }
+
+        .trust-card h4 {
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .trust-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+
+        /* Cost Breakdown */
+        .cost-breakdown {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .cost-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .cost-header {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .cost-header.china {
+            background: var(--body);
+            color: var(--white);
+        }
+
+        .cost-header.india {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .cost-header h3 {
+            color: var(--white);
+        }
+
+        .cost-items {
+            padding: 30px;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+
+        .cost-total {
+            background: var(--light-bg);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .cost-total.savings {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--red) 0%, #d63840 100%);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn {
+            background: var(--white);
+            color: var(--red);
+        }
+
+        .cta .btn:hover {
+            background: var(--title);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--title);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-card {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr;
+            }
+
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cost-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-text">ORKAY<span>TILES</span></div>
+                <a href="#quote" class="btn btn-primary">Get India Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">🇮🇳 India vs 🇨🇳 China</div>
+                <h1>Save <span>30%</span> on Tile Imports</h1>
+                <p>Smart importers are switching from China to India. Same quality, better pricing, faster lead times.
+                    Here's why Orkay Tiles is your best alternative.</p>
+                <a href="#quote" class="btn btn-primary">Compare Pricing Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Stats -->
+    <section class="comparison-stats">
+        <div class="container">
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-number">30<span>%</span></div>
+                    <div class="stat-label">Average Cost Savings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15<span>days</span></div>
+                    <div class="stat-label">Faster Lead Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99<span>%</span></div>
+                    <div class="stat-label">Order Accuracy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2>India vs China: The Complete Comparison</h2>
+                <p>See why leading importers are making the switch to Indian manufacturers.</p>
+            </div>
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div>Factor</div>
+                    <div class="india-col">🇮🇳 India (Orkay)</div>
+                    <div>🇨🇳 China</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Price Competitiveness</div>
+                    <div class="india-highlight"><span class="check">✓</span> 25-30% Lower</div>
+                    <div>Higher costs</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Production Lead Time</div>
+                    <div class="india-highlight"><span class="check">✓</span> 15-20 days</div>
+                    <div>30-45 days</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Quality Consistency</div>
+                    <div class="india-highlight"><span class="check">✓</span> Batch-to-batch match</div>
+                    <div><span class="cross">⚠</span> Variable quality</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Communication</div>
+                    <div class="india-highlight"><span class="check">✓</span> English fluency</div>
+                    <div><span class="cross">⚠</span> Language barrier</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">MOQ Flexibility</div>
+                    <div class="india-highlight"><span class="check">✓</span> Small orders OK</div>
+                    <div><span class="cross">⚠</span> High MOQs</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Design Originality</div>
+                    <div class="india-highlight"><span class="check">✓</span> 1000+ unique designs</div>
+                    <div>Often copied</div>
+                </div>
+                <div class="table-row">
+                    <div class="factor">Trade Tensions</div>
+                    <div class="india-highlight"><span class="check">✓</span> No tariff issues</div>
+                    <div><span class="cross">⚠</span> Tariff volatility</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="pain-points">
+        <div class="container">
+            <div class="pain-grid">
+                <div class="pain-content">
+                    <h2>Tired of <span>China Sourcing</span> Headaches?</h2>
+                    <ul class="pain-list">
+                        <li class="pain-item">
+                            <div class="pain-icon">📦</div>
+                            <div class="pain-text">
+                                <h4>Quality Inconsistency</h4>
+                                <p>Different batches, different shades. Constant QC issues.</p>
+                            </div>
+                        </li>
+                        <li class="pain-item">
+                            <div class="pain-icon">⏱️</div>
+                            <div class="pain-text">
+                                <h4>Long Lead Times</h4>
+                                <p>45+ days production plus unpredictable shipping delays.</p>
+                            </div>
+                        </li>
+                        <li class="pain-item">
+                            <div class="pain-icon">💬</div>
+                            <div class="pain-text">
+                                <h4>Communication Gaps</h4>
+                                <p>Misunderstandings, wrong orders, lost in translation.</p>
+                            </div>
+                        </li>
+                        <li class="pain-item">
+                            <div class="pain-icon">📈</div>
+                            <div class="pain-text">
+                                <h4>Rising Costs</h4>
+                                <p>China prices no longer competitive. Tariffs eating margins.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="solution-box">
+                    <h3>The Orkay Solution</h3>
+                    <ul class="solution-list">
+                        <li>Same shade guarantee across all batches</li>
+                        <li>15-20 day production time</li>
+                        <li>Fluent English speaking export team</li>
+                        <li>25-30% cost savings vs China</li>
+                        <li>No trade war risks or tariff volatility</li>
+                        <li>ISO & CE certified for all markets</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <h2>Why Importers Trust Orkay</h2>
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">🏭</div>
+                    <h4>Own Manufacturing</h4>
+                    <p>We manufacture in our own facility – no middlemen, complete quality control.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">📅</div>
+                    <h4>25+ Years Experience</h4>
+                    <p>Operating since 1996 with proven track record in 40+ countries.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">🔄</div>
+                    <h4>Repeat Business</h4>
+                    <p>80% of our export orders come from repeat customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Breakdown -->
+    <section class="cost-breakdown">
+        <div class="container">
+            <div class="section-header">
+                <h2>Real Cost Comparison</h2>
+                <p>Example: 600×1200 Porcelain Tiles (1 container - 1,500 sq.m)</p>
+            </div>
+            <div class="cost-grid">
+                <div class="cost-card">
+                    <div class="cost-header china">
+                        <h3>🇨🇳 China Supplier</h3>
+                    </div>
+                    <div class="cost-items">
+                        <div class="cost-item">
+                            <span>FOB Price / sq.m</span>
+                            <span>$6.50</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>Freight to USA</span>
+                            <span>$3,500</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>Import Tariff (25%)</span>
+                            <span>$2,438</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>QC Visit</span>
+                            <span>$1,200</span>
+                        </div>
+                    </div>
+                    <div class="cost-total">
+                        <span>Total Landed Cost</span>
+                        <span>$16,888</span>
+                    </div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-header india">
+                        <h3>🇮🇳 Orkay Tiles</h3>
+                    </div>
+                    <div class="cost-items">
+                        <div class="cost-item">
+                            <span>FOB Price / sq.m</span>
+                            <span>$4.80</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>Freight to USA</span>
+                            <span>$2,800</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>Import Tariff (0%)</span>
+                            <span>$0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>QC Visit</span>
+                            <span>$0 (Video QC)</span>
+                        </div>
+                    </div>
+                    <div class="cost-total">
+                        <span>Total Landed Cost</span>
+                        <span>$10,000</span>
+                    </div>
+                    <div class="cost-total savings">
+                        <span>Your Savings</span>
+                        <span>$6,888 (41%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="quote">
+        <div class="container">
+            <h2>Ready to Make the Switch?</h2>
+            <p>Get a comparative quote for your current China order. See how much you could save with Orkay Tiles.</p>
+            <a href="javascript:void(0)" class="btn"
+                onclick="document.getElementById('popup-DVCroNRXjap5XqKMOzWD').style.display='block'">Request Comparison
+                Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Orkay Tiles | Morbi, Gujarat, India | +91 98256 00183 | exports@orkaytiles.com</p>
+        </div>
+    </footer>
+
+    <!-- GHL Popup Form -->
+    <iframe src="https://api.leadconnectorhq.com/widget/form/DVCroNRXjap5XqKMOzWD"
+        style="display:none;width:100%;height:100%;border:none;border-radius:4px" id="popup-DVCroNRXjap5XqKMOzWD"
+        data-layout="{'id':'POPUP'}" data-trigger-type="alwaysShow" data-trigger-value=""
+        data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate"
+        data-deactivation-value="" data-form-name="ON BOARDING FORM" data-height="1216"
+        data-layout-iframe-id="popup-DVCroNRXjap5XqKMOzWD" data-form-id="DVCroNRXjap5XqKMOzWD"
+        title="ON BOARDING FORM"></iframe>
+    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+    <!-- GHL Chat Widget -->
+    <script src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="696e2b7b50385b42732c3050">
+        </script>
+</body>
+
+</html>

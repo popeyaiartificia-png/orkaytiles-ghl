@@ -1,7 +1,9 @@
 .env
+agent_config.py
 __pycache__/
 *.pyc
 *.pyo
 audio_cache/
 server.log
+call_history.json
 *.log

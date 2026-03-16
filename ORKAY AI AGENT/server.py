@@ -40,8 +40,8 @@ def load_history() -> list:
 
 def save_history(record: dict):
     h = load_history()
-    h.insert(0, record)   # newest first
-    h = h[:200]            # keep last 200
+    h.insert(0, record)
+    h = h[:200]
     HISTORY_FILE.write_text(json.dumps(h, ensure_ascii=False, indent=2))
 
 # ─── WebSocket Broadcast ─────────────────────────────────────────────────────
@@ -151,7 +151,11 @@ async def wrap_up(session: dict):
     data     = session.get("collected_data", {})
     interest = data.get("interest", "unknown")
     history  = session.get("history", [])
-    duration = int((datetime.utcnow() - session.get("started_at", datetime.utcnow())).total_seconds())
+    started  = session.get("started_at", datetime.utcnow().isoformat())
+    if isinstance(started, str):
+        try: started = datetime.fromisoformat(started)
+        except: started = datetime.utcnow()
+    duration = int((datetime.utcnow() - started).total_seconds())
 
     transcript = "\n".join(
         f"{'Aria' if m['role']=='assistant' else 'Customer'}: {m['content']}"
@@ -196,10 +200,7 @@ def vxml(audio_url: str, record_url: str = "", hangup: bool = False) -> Response
 app = FastAPI(title="Orkay AI Agent")
 app.mount("/audio", StaticFiles(directory=str(AUDIO_DIR), check_dir=False), name="audio")
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# DASHBOARD ROUTES
-# ═══════════════════════════════════════════════════════════════════════════════
-
+# DASHBOARD
 @app.get("/", response_class=HTMLResponse)
 async def dashboard():
     return FileResponse(BASE_DIR / "dashboard.html")
@@ -208,7 +209,6 @@ async def dashboard():
 async def ws_live(ws: WebSocket):
     await ws.accept()
     ws_clients.append(ws)
-    # send current state immediately
     await ws.send_text(json.dumps({
         "event":   "init",
         "active":  list(call_sessions.values()),
@@ -217,32 +217,29 @@ async def ws_live(ws: WebSocket):
     }))
     try:
         while True:
-            await ws.receive_text()   # keep alive
+            await ws.receive_text()
     except WebSocketDisconnect:
-        ws_clients.remove(ws)
+        if ws in ws_clients: ws_clients.remove(ws)
 
 @app.get("/api/history")
-async def api_history():
-    return load_history()
+async def api_history(): return load_history()
 
 @app.get("/api/active")
-async def api_active():
-    return list(call_sessions.values())
+async def api_active(): return list(call_sessions.values())
 
 @app.get("/api/stats")
-async def api_stats():
-    return compute_stats()
+async def api_stats(): return compute_stats()
 
 @app.get("/api/config")
 async def api_config():
     return {
-        "system_prompt":  SYSTEM_PROMPT,
-        "greeting":       GREETING_TEXT,
-        "stt_model":      "saaras:v3",
-        "tts_speaker":    "meera",
-        "llm_model":      "sarvam-105b",
-        "language":       "hi-IN",
-        "from_number":    os.getenv("VOBIZ_FROM_NUMBER"),
+        "system_prompt":   SYSTEM_PROMPT,
+        "greeting":        GREETING_TEXT,
+        "stt_model":       "saaras:v3",
+        "tts_speaker":     "meera",
+        "llm_model":       "sarvam-105b",
+        "language":        "hi-IN",
+        "from_number":     os.getenv("VOBIZ_FROM_NUMBER"),
         "public_base_url": PUBLIC_BASE_URL,
     }
 
@@ -255,12 +252,14 @@ async def api_make_call(request: Request):
 
     if not to_number:
         return {"error": "Missing phone number"}
+    if not PUBLIC_BASE_URL or "YOUR" in PUBLIC_BASE_URL:
+        return {"error": "PUBLIC_BASE_URL not set in .env — run cloudflared or ngrok first"}
 
     auth_id     = os.getenv("VOBIZ_AUTH_ID")
     auth_secret = os.getenv("VOBIZ_AUTH_SECRET")
     from_number = os.getenv("VOBIZ_FROM_NUMBER")
+    trunk_id    = os.getenv("VOBIZ_TRUNK_ID", "")
 
-    # Correct Vobiz endpoint: /api/v1/Account/{auth_id}/Call/
     vobiz_url = f"https://api.vobiz.ai/api/v1/Account/{auth_id}/Call/"
 
     try:
@@ -273,16 +272,21 @@ async def api_make_call(request: Request):
                     "Content-Type": "application/json",
                 },
                 json={
-                    "from":       from_number,
-                    "to":         to_number,
-                    "answer_url": f"{PUBLIC_BASE_URL}/webhook/answer",
-                    "hangup_url": f"{PUBLIC_BASE_URL}/webhook/hangup",
-                    "ring_url":   f"{PUBLIC_BASE_URL}/webhook/hangup",
-                    "sip_trunk_id": os.getenv("VOBIZ_TRUNK_ID", ""),
+                    "from":         from_number,
+                    "to":           to_number,
+                    "answer_url":   f"{PUBLIC_BASE_URL}/webhook/answer",
+                    "hangup_url":   f"{PUBLIC_BASE_URL}/webhook/hangup",
+                    "ring_url":     f"{PUBLIC_BASE_URL}/webhook/hangup",
+                    "sip_trunk_id": trunk_id,
                 },
             )
-            print(f"[VOBIZ] {resp.status_code}: {resp.text[:200]}")
-            result    = resp.json()
+            print(f"[VOBIZ] {resp.status_code}: {resp.text[:300]}")
+            try:
+                result = resp.json()
+            except Exception:
+                return {"error": f"Vobiz returned non-JSON: {resp.status_code} {resp.text[:200]}"}
+            if resp.status_code >= 400:
+                return {"error": f"Vobiz error {resp.status_code}: {result}"}
             call_uuid = result.get("call_uuid") or result.get("uuid", uuid.uuid4().hex)
     except Exception as e:
         print(f"[VOBIZ ERROR] {e}")
@@ -300,7 +304,6 @@ async def api_make_call(request: Request):
     }
     call_sessions[call_uuid] = session
     await broadcast("call_started", {"call_uuid": call_uuid, "number": to_number, "name": contact_name})
-
     return {"status": "initiated", "call_uuid": call_uuid, "vobiz": result}
 
 def compute_stats() -> dict:
@@ -311,10 +314,7 @@ def compute_stats() -> dict:
     avg_dur = int(sum(c.get("duration_s", 0) for c in history) / total) if total else 0
     return {"total": total, "hot_leads": high, "warm_leads": medium, "avg_duration_s": avg_dur}
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # VOBIZ WEBHOOKS
-# ═══════════════════════════════════════════════════════════════════════════════
-
 @app.post("/webhook/answer")
 async def on_answer(
     CallUUID: str = Form(default=""),
@@ -323,22 +323,18 @@ async def on_answer(
 ):
     call_uuid = CallUUID or uuid.uuid4().hex
     print(f"[ANSWER] {call_uuid} | {From} → {To}")
-
     if call_uuid not in call_sessions:
         call_sessions[call_uuid] = {
             "call_uuid": call_uuid, "history": [], "contact_id": "",
             "contact_name": "", "contact_number": To, "turn": 0,
-            "status": "active", "started_at": datetime.utcnow(),
+            "status": "active", "started_at": datetime.utcnow().isoformat(),
         }
     else:
         call_sessions[call_uuid]["status"] = "active"
-
     await broadcast("call_update", {"call_uuid": call_uuid, "status": "active", "turn": 0})
-
     greeting_url = await synthesize(GREETING_TEXT)
     record_url   = f"{PUBLIC_BASE_URL}/webhook/recording?call_uuid={call_uuid}"
     return vxml(greeting_url, record_url)
-
 
 @app.post("/webhook/recording")
 async def on_recording(
@@ -376,7 +372,6 @@ async def on_recording(
     reply = await llm_reply(session["history"])
     session["history"].append({"role": "assistant", "content": reply})
 
-    # Parse collected data
     m = re.search(r'\[DATA:(.*?)\]', reply, re.DOTALL)
     if m:
         try: session["collected_data"] = json.loads(m.group(1))
@@ -392,21 +387,18 @@ async def on_recording(
 
     should_end = "[CALL_COMPLETE]" in reply or "[CALL_END]" in reply
     audio_url  = await synthesize(reply)
-
     if should_end:
         background_tasks.add_task(wrap_up, dict(session))
         call_sessions.pop(cid, None)
         return vxml(audio_url, hangup=True)
-
     return vxml(audio_url, f"{PUBLIC_BASE_URL}/webhook/recording?call_uuid={cid}")
-
 
 @app.post("/webhook/hangup")
 async def on_hangup(
     background_tasks: BackgroundTasks,
-    CallUUID:         str = Form(default=""),
-    Duration:         str = Form(default=""),
-    HangupCause:      str = Form(default=""),
+    CallUUID:    str = Form(default=""),
+    Duration:    str = Form(default=""),
+    HangupCause: str = Form(default=""),
 ):
     session = call_sessions.pop(CallUUID, None)
     print(f"[HANGUP] {CallUUID} | {Duration}s | {HangupCause}")
@@ -414,18 +406,14 @@ async def on_hangup(
         background_tasks.add_task(wrap_up, dict(session))
     return Response(status_code=204)
 
-
-# Also expose /call/initiate for n8n
 @app.post("/call/initiate")
 async def call_initiate(request: Request):
     return await api_make_call(request)
-
 
 @app.get("/health")
 async def health():
     return {"status": "ok", "public_url": PUBLIC_BASE_URL,
             "llm": "sarvam-105b", "stt": "saaras:v3", "tts": "bulbul:v1/meera"}
-
 
 if __name__ == "__main__":
     import uvicorn

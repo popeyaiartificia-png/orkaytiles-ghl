@@ -1,0 +1,187 @@
+{
+  "name": "Orkay Tiles — GHL to AI Call Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ghl-new-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-ghl-webhook",
+      "name": "GHL New Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "notes": "In GHL → Settings → Integrations → Webhooks\nAdd this URL for trigger: contact.create OR tag.add (tag: status-new-lead)"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({received: true}) }}"
+      },
+      "id": "node-respond",
+      "name": "Acknowledge GHL",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 180],
+      "notes": "Respond immediately so GHL doesn't timeout"
+    },
+    {
+      "parameters": {
+        "amount": 30,
+        "unit": "seconds"
+      },
+      "id": "node-wait",
+      "name": "Wait 30s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [460, 380],
+      "notes": "Give GHL time to finish creating the contact before we call"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.phone || $json.body.contact?.phone || '' }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "node-check-phone",
+      "name": "Has Phone Number?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 380]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.AGENT_SERVER_URL }}/call/initiate",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"to\": \"{{ $json.body.phone || $json.body.contact.phone }}\",\n  \"contact_id\": \"{{ $json.body.id || $json.body.contact.id }}\"\n}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "node-trigger-call",
+      "name": "Trigger AI Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 300],
+      "notes": "Calls your server.py /call/initiate endpoint\nSet AGENT_SERVER_URL env var in n8n (your ngrok or deployed URL)"
+    },
+    {
+      "parameters": {
+        "url": "=https://services.leadconnectorhq.com/contacts/{{ $node[\"GHL New Lead Webhook\"].json.body.id || $node[\"GHL New Lead Webhook\"].json.body.contact.id }}/notes",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.GHL_API_KEY }}"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={\n  \"body\": \"📞 AI Outbound Call Initiated by Aria (Orkay Tiles AI Agent) | Call UUID: {{ $json.call_uuid }}\"\n}",
+        "options": {}
+      },
+      "id": "node-ghl-note",
+      "name": "Add Call Note to GHL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "url": "=https://services.leadconnectorhq.com/contacts/{{ $node[\"GHL New Lead Webhook\"].json.body.id || $node[\"GHL New Lead Webhook\"].json.body.contact.id }}/tags",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.GHL_API_KEY }}"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "{\"tags\": [\"ai-call-initiated\"]}",
+        "options": {}
+      },
+      "id": "node-ghl-tag",
+      "name": "Tag Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1120, 460]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "error",
+              "value": "No phone number — skipping call"
+            }
+          ]
+        }
+      },
+      "id": "node-no-phone",
+      "name": "No Phone — Skip",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 480]
+    }
+  ],
+  "connections": {
+    "GHL New Lead Webhook": {
+      "main": [
+        [
+          {"node": "Acknowledge GHL", "type": "main", "index": 0},
+          {"node": "Wait 30s", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "Wait 30s": {
+      "main": [
+        [{"node": "Has Phone Number?", "type": "main", "index": 0}]
+      ]
+    },
+    "Has Phone Number?": {
+      "main": [
+        [{"node": "Trigger AI Call", "type": "main", "index": 0}],
+        [{"node": "No Phone — Skip", "type": "main", "index": 0}]
+      ]
+    },
+    "Trigger AI Call": {
+      "main": [
+        [
+          {"node": "Add Call Note to GHL", "type": "main", "index": 0},
+          {"node": "Tag Contact", "type": "main", "index": 0}
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "meta": {
+    "description": "Triggers an AI outbound call via Orkay Tiles Voice Agent when a new lead arrives in GHL. Requires: server.py running, AGENT_SERVER_URL and GHL_API_KEY set as n8n env vars."
+  }
+}
